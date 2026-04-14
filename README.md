@@ -1,57 +1,53 @@
-# 🔥 ModelMux
+# ModelMux — Multi-Model Router. Intelligent multi-model routing and fallback for LLM apps
 
-> Intelligent multi-model routing and fallback for LLM apps
+Multi-Model Router. Intelligent multi-model routing and fallback for LLM apps. ModelMux gives you a focused, inspectable implementation of that idea.
 
-[![CI](https://github.com/MukundaKatta/ModelMux/actions/workflows/ci.yml/badge.svg)](https://github.com/MukundaKatta/ModelMux/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)]()
+## Why ModelMux
 
-## What is ModelMux?
-ModelMux routes LLM requests to the optimal model based on task complexity, cost budget, and latency requirements. It supports automatic fallback chains, load balancing, and cost tracking across multiple providers.
+ModelMux exists to make this workflow practical. Multi-model router. intelligent multi-model routing and fallback for llm apps. It favours a small, inspectable surface over sprawling configuration.
 
-## ✨ Features
-- ✅ Rule-based routing (task type, token count, cost budget)
-- ✅ Automatic fallback chains on model failures
-- ✅ Cost tracking per request and aggregate
-- ✅ Latency-aware routing
-- ✅ Support for OpenAI, Anthropic, and local models
-- 🔜 Learned routing based on quality scores
-- 🔜 A/B testing between models
+## Features
 
-## 🚀 Quick Start
+- `RoutingStrategy` — exported from `src/modelmux/core.py`
+- `ModelConfig` — exported from `src/modelmux/core.py`
+- `ModelResponse` — exported from `src/modelmux/core.py`
+- Included test suite
+- Dedicated documentation folder
+
+## Tech Stack
+
+- **Runtime:** Python
+
+## How It Works
+
+The codebase is organised into `docs/`, `src/`, `tests/`. The primary entry points are `src/modelmux/core.py`, `src/modelmux/__init__.py`. `src/modelmux/core.py` exposes `RoutingStrategy`, `ModelConfig`, `ModelResponse` — the core types that drive the behaviour.
+
+## Getting Started
+
 ```bash
-pip install modelmux
+pip install -e .
 ```
+
+## Usage
+
 ```python
-from modelmux import Router, ModelConfig
+from modelmux.core import RoutingStrategy
 
-router = Router([
-    ModelConfig(name="claude-sonnet", provider="anthropic", cost_per_1k=0.003, max_tokens=200000),
-    ModelConfig(name="gpt-4o-mini", provider="openai", cost_per_1k=0.00015, max_tokens=128000),
-])
-
-response = router.route(
-    prompt="Explain quantum computing",
-    strategy="cost_optimized"
-)
+instance = RoutingStrategy()
+# See the source for the full API
 ```
 
-## 🏗️ Architecture
-```mermaid
-graph TD
-    A[Request] --> B[Router]
-    B --> C{Strategy Engine}
-    C -->|cost_optimized| D[Cheapest Model]
-    C -->|quality_first| E[Best Model]
-    C -->|latency_first| F[Fastest Model]
-    D --> G[Fallback Chain]
-    E --> G
-    F --> G
-    G --> H[Response + Metrics]
+## Project Structure
+
 ```
-
-## 📖 Inspired By
-Inspired by LiteLLM and Portkey's model gateway, but focused on intelligent routing rather than just API unification.
-
----
-**Built by [Officethree Technologies](https://github.com/MukundaKatta)** | Made with ❤️ and AI
+ModelMux/
+├── .env.example
+├── CONTRIBUTING.md
+├── LICENSE
+├── Makefile
+├── README.md
+├── docs/
+├── pyproject.toml
+├── src/
+├── tests/
+```
