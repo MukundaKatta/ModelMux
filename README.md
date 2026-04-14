@@ -1,6 +1,6 @@
 # ModelMux — Multi-Model Router. Intelligent multi-model routing and fallback for LLM apps
 
-Multi-Model Router. Intelligent multi-model routing and fallback for LLM apps. ModelMux gives you a focused, inspectable implementation of that idea.
+Multi-Model Router. Intelligent multi-model routing and fallback for LLM apps.
 
 ## Why ModelMux
 
